@@ -43,6 +43,9 @@ public class UserListInteractorImpl implements IUserListInteractor, IResponseCal
         if (mListener != null) {
             // TODO convert
             List<UserModel> userModels = new ArrayList<>();
+            for (UserModelR userModelR : userModelRS) {
+                userModels.add(new UserModel(userModelR));
+            }
             mListener.onSuccess(userModels);
         }
     }

@@ -14,6 +14,7 @@ import binaryblitz.com.binaryblitz.presentation.userlist.interfaces.ViewUserList
 public class PresenterUserList implements Presenter<ViewUserList>,IUserListInteractor.UsersLoadedListener {
     private final IUserListInteractor mInteractor;
     private ViewUserList mView;
+    private List<UserModel> mUserMoodels;
 
     public PresenterUserList(IUserListInteractor iUserListInteractor) {
         mInteractor = iUserListInteractor;
@@ -22,7 +23,9 @@ public class PresenterUserList implements Presenter<ViewUserList>,IUserListInter
     @Override
     public void onViewAttached(ViewUserList view) {
         mView = view;
-        mInteractor.getUsers(this);
+        if(mUserMoodels == null) {
+            mInteractor.getUsers(this);
+        }
     }
 
     @Override
@@ -41,7 +44,9 @@ public class PresenterUserList implements Presenter<ViewUserList>,IUserListInter
     }
 
     @Override
-    public void onSuccess(List<UserModel> restaurants) {
-        mView.show(restaurants.toString());
+    public void onSuccess(List<UserModel> userModels) {
+        mUserMoodels = userModels;
+        mView.show(mUserMoodels.get(0).getFirstName());
+
     }
 }

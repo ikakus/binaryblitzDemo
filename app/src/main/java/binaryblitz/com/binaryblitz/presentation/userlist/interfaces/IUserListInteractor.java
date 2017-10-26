@@ -13,6 +13,6 @@ public interface IUserListInteractor {
 
     interface UsersLoadedListener{
         void onError(String error);
-        void onSuccess(List<UserModel> restaurants);
+        void onSuccess(List<UserModel> userModels);
     }
 }
