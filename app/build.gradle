@@ -1,0 +1,72 @@
+apply plugin: 'com.android.application'
+
+def version = '1.0.0'
+def codeVersion = 1
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+    defaultConfig {
+        applicationId "binaryblitz.com.binaryblitz"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode codeVersion
+        versionName "$version"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', 'API_BASE_URL', "\"https://bb-test-server.herokuapp.com\""
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+def supportLibraryVersion = '26.1.0'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile "com.android.support:design:$supportLibraryVersion"
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+
+    // Dagger2
+    compile 'com.google.dagger:dagger:2.0.2'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.0.2'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+
+    // Retrofit2
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+
+    // Rx
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+
+    // ButterKnife
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    // RxPermissions
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar'
+
+    // Picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+    // Logger
+    compile 'com.orhanobut:logger:1.15'
+
+    // Timber
+    compile 'com.jakewharton.timber:timber:4.5.1'
+
+}
