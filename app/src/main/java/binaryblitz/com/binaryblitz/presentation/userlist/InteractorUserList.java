@@ -6,7 +6,7 @@ import java.util.List;
 import binaryblitz.com.binaryblitz.data.api.ApiEndpointInterface;
 import binaryblitz.com.binaryblitz.data.api.ErrorHandlingSubscriber;
 import binaryblitz.com.binaryblitz.data.api.IResponseCallback;
-import binaryblitz.com.binaryblitz.data.networking.UserModelR;
+import binaryblitz.com.binaryblitz.data.networking.response.UserModelR;
 import binaryblitz.com.binaryblitz.data.presentation.UserModel;
 import binaryblitz.com.binaryblitz.presentation.userlist.interfaces.IUserListInteractor;
 import retrofit2.Response;

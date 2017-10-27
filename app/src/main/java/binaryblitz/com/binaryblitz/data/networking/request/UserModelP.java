@@ -1,4 +1,4 @@
-package binaryblitz.com.binaryblitz.data.networking;
+package binaryblitz.com.binaryblitz.data.networking.request;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,10 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by ikakus on 10/26/17.
  */
 
-public class UserModelR {
-    @SerializedName("id")
-    @Expose
-    public Integer id;
+public class UserModelP {
     @SerializedName("first_name")
     @Expose
     public String firstName;
@@ -23,10 +20,4 @@ public class UserModelR {
     @SerializedName("avatar_url")
     @Expose
     public String avatarUrl;
-    @SerializedName("created_at")
-    @Expose
-    public String createdAt;
-    @SerializedName("updated_at")
-    @Expose
-    public String updatedAt;
 }
