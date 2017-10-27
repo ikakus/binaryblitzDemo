@@ -11,7 +11,7 @@ import binaryblitz.com.binaryblitz.presentation.userlist.interfaces.IViewUserLis
  * Created by ikakus on 10/25/17.
  */
 
-public class PresenterUserList implements Presenter<IViewUserList>,IUserListInteractor.UsersLoadedListener {
+public class PresenterUserList implements Presenter<IViewUserList>,IUserListInteractor.UsersLoadedListener, IViewUserList.OnUserItemClickListener {
     private final IUserListInteractor mInteractor;
     private IViewUserList mView;
     private List<UserModel> mUserMoodels;
@@ -42,13 +42,17 @@ public class PresenterUserList implements Presenter<IViewUserList>,IUserListInte
 
     @Override
     public void onError(String error) {
-        mView.show(error);
+        mView.showText(error);
     }
 
     @Override
     public void onSuccess(List<UserModel> userModels) {
         mUserMoodels = userModels;
-        mView.show(mUserMoodels.get(0).getFirstName());
+        mView.fillUsers(userModels);
+    }
 
+    @Override
+    public void onUserItemClicked(int userId) {
+        mView.showText("User id:" + userId);
     }
 }
