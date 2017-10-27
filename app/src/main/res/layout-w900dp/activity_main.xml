@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="binaryblitz.com.binaryblitz.presentation.maincontainer.MainContainerActivity">
+    tools:context="binaryblitz.com.binaryblitz.presentation.maincontainer.ActivityMainContainer">
 
     <FrameLayout
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

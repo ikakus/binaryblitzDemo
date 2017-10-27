@@ -14,7 +14,7 @@ import binaryblitz.com.binaryblitz.presentation.maincontainer.interfaces.IMainCo
 import binaryblitz.com.binaryblitz.presentation.userlist.UserListViewFragment;
 
 
-public class MainContainerActivity extends AppCompatActivity implements IMainContainerView, LoaderManager.LoaderCallbacks<PresenterMainContainer> {
+public class ActivityMainContainer extends AppCompatActivity implements IMainContainerView, LoaderManager.LoaderCallbacks<PresenterMainContainer> {
     private boolean mTwoPane;
     private PresenterMainContainer mPresenter;
 
