@@ -24,12 +24,12 @@ import timber.log.Timber;
  * Created by ikakus on 10/27/17.
  */
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
+public class AdapterUserList extends RecyclerView.Adapter<AdapterUserList.UserViewHolder> {
     private final Context mContext;
     private List<UserModel> mItems;
     private IViewUserList.OnUserItemClickListener mListener;
 
-    public UserAdapter(Context context) {
+    public AdapterUserList(Context context) {
         mContext = context;
         mItems = new ArrayList<>();
     }

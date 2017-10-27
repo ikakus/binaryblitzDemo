@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import binaryblitz.com.binaryblitz.presentation.userlist.UserListViewFragment;
+import binaryblitz.com.binaryblitz.presentation.userlist.FragmentUserListView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListFragment() {
-        UserListViewFragment fragment = new UserListViewFragment();
+        FragmentUserListView fragment = new FragmentUserListView();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
