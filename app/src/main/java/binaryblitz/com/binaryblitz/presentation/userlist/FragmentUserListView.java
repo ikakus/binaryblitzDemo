@@ -23,13 +23,13 @@ import butterknife.Unbinder;
  * Created by ikakus on 10/27/17.
  */
 
-public class UserListViewFragment extends Fragment implements IViewUserList, LoaderManager.LoaderCallbacks<PresenterUserList>,IViewUserList.OnUserItemClickListener {
+public class FragmentUserListView extends Fragment implements IViewUserList, LoaderManager.LoaderCallbacks<PresenterUserList>,IViewUserList.OnUserItemClickListener {
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
     Unbinder unbinder;
     private PresenterUserList mPresenter;
-    private UserAdapter mAdapter;
+    private AdapterUserList mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class UserListViewFragment extends Fragment implements IViewUserList, Loa
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_user_list, container, false);
         unbinder = ButterKnife.bind(this, rootView);
-        mAdapter = new UserAdapter(getContext());
+        mAdapter = new AdapterUserList(getContext());
         mAdapter.setListener(this);
         mRecyclerView.setAdapter(mAdapter);
         return rootView;

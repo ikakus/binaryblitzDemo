@@ -22,6 +22,6 @@ public class ModuleUserList {
     @Singleton
     @Provides
     public IUserListInteractor provideInteractor(ApiEndpointInterface apiEndpointInterface){
-        return new UserListInteractorImpl(apiEndpointInterface);
+        return new InteractorUserList(apiEndpointInterface);
     }
 }

@@ -19,12 +19,12 @@ import rx.schedulers.Schedulers;
  * Created by ikakus on 10/26/17.
  */
 
-public class UserListInteractorImpl implements IUserListInteractor, IResponseCallback<List<UserModelR>> {
+public class InteractorUserList implements IUserListInteractor, IResponseCallback<List<UserModelR>> {
     private final ApiEndpointInterface mApi;
     private UsersLoadedListener mListener;
     private Subscription mSubscription;
 
-    public UserListInteractorImpl(ApiEndpointInterface apiEndpointInterface) {
+    public InteractorUserList(ApiEndpointInterface apiEndpointInterface) {
         mApi = apiEndpointInterface;
     }
 
