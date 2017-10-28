@@ -1,4 +1,4 @@
-package binaryblitz.com.binaryblitz.presentation.adduser;
+package binaryblitz.com.binaryblitz.presentation.createuser;
 
 import javax.inject.Singleton;
 

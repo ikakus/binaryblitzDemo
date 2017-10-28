@@ -1,9 +1,9 @@
-package binaryblitz.com.binaryblitz.presentation.adduser;
+package binaryblitz.com.binaryblitz.presentation.createuser;
 
 import javax.inject.Singleton;
 
 import binaryblitz.com.binaryblitz.data.api.ApiEndpointInterface;
-import binaryblitz.com.binaryblitz.presentation.adduser.interfaces.ICreateUserInteractor;
+import binaryblitz.com.binaryblitz.presentation.createuser.interfaces.ICreateUserInteractor;
 import dagger.Module;
 import dagger.Provides;
 

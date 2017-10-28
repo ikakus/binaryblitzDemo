@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import binaryblitz.com.binaryblitz.R;
+import binaryblitz.com.binaryblitz.presentation.createuser.DialogFragmentCreateUser;
 import binaryblitz.com.binaryblitz.presentation.maincontainer.interfaces.IMainContainerView;
 import binaryblitz.com.binaryblitz.presentation.userlist.FragmentUserListView;
 
@@ -56,11 +57,8 @@ public class ActivityMainContainer extends AppCompatActivity implements IMainCon
 
     @Override
     public void showCreateUser() {
-        if(mTwoPane){
-            // show in dialog fragment
-        }else {
-            // show in activity
-        }
+        DialogFragmentCreateUser dialogFragmentCreateUser = new DialogFragmentCreateUser();
+        dialogFragmentCreateUser.show(getSupportFragmentManager(), "dialog_create_user");
     }
 
     @Override

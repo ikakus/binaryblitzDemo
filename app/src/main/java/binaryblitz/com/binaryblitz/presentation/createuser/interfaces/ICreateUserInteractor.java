@@ -1,4 +1,4 @@
-package binaryblitz.com.binaryblitz.presentation.adduser.interfaces;
+package binaryblitz.com.binaryblitz.presentation.createuser.interfaces;
 
 import binaryblitz.com.binaryblitz.data.networking.BaseResponse;
 import binaryblitz.com.binaryblitz.data.presentation.CreateUserModel;

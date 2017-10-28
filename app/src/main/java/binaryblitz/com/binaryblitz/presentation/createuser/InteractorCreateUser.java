@@ -1,4 +1,4 @@
-package binaryblitz.com.binaryblitz.presentation.adduser;
+package binaryblitz.com.binaryblitz.presentation.createuser;
 
 import binaryblitz.com.binaryblitz.data.api.ApiEndpointInterface;
 import binaryblitz.com.binaryblitz.data.api.ErrorHandlingSubscriber;
@@ -7,7 +7,7 @@ import binaryblitz.com.binaryblitz.data.networking.BaseResponse;
 import binaryblitz.com.binaryblitz.data.networking.request.CreateUserRequestW;
 import binaryblitz.com.binaryblitz.data.networking.request.UserModelP;
 import binaryblitz.com.binaryblitz.data.presentation.CreateUserModel;
-import binaryblitz.com.binaryblitz.presentation.adduser.interfaces.ICreateUserInteractor;
+import binaryblitz.com.binaryblitz.presentation.createuser.interfaces.ICreateUserInteractor;
 import retrofit2.Response;
 import rx.Observable;
 import rx.Subscription;

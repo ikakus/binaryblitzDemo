@@ -1,4 +1,4 @@
-package binaryblitz.com.binaryblitz.presentation.adduser;
+package binaryblitz.com.binaryblitz.presentation.createuser;
 
 import android.content.Context;
 import android.support.v4.content.Loader;
