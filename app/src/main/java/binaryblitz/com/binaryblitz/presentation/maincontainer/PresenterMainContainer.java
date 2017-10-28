@@ -31,7 +31,7 @@ class PresenterMainContainer implements Presenter<IMainContainerView> {
         mIsRetained = false;
     }
 
-    public void onAddUserClick() {
-        mView.showAddUser();
+    public void onCreateUserClick() {
+        mView.showCreateUser();
     }
 }

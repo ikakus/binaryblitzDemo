@@ -3,7 +3,7 @@ package binaryblitz.com.binaryblitz.data.api;
 import java.util.List;
 
 import binaryblitz.com.binaryblitz.data.networking.BaseResponse;
-import binaryblitz.com.binaryblitz.data.networking.request.UserModelP;
+import binaryblitz.com.binaryblitz.data.networking.request.CreateUserRequestW;
 import binaryblitz.com.binaryblitz.data.networking.response.UserModelR;
 import retrofit2.Response;
 import retrofit2.http.Body;
@@ -20,5 +20,5 @@ public interface ApiEndpointInterface {
     Observable<Response<List<UserModelR>>> getUsers();
 
     @POST("users.json")
-    Observable<Response<BaseResponse>> createUser(@Body UserModelP userModelP);
+    Observable<Response<BaseResponse>> createUser(@Body CreateUserRequestW createUserRequestW);
 }

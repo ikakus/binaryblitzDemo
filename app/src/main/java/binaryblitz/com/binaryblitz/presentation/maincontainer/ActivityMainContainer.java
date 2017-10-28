@@ -36,7 +36,7 @@ public class ActivityMainContainer extends AppCompatActivity implements IMainCon
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.onAddUserClick();
+                mPresenter.onCreateUserClick();
             }
         });
         getSupportLoaderManager().initLoader(0, null, this);
@@ -55,11 +55,11 @@ public class ActivityMainContainer extends AppCompatActivity implements IMainCon
     }
 
     @Override
-    public void showAddUser() {
+    public void showCreateUser() {
         if(mTwoPane){
             // show in dialog fragment
         }else {
-
+            // show in activity
         }
     }
 

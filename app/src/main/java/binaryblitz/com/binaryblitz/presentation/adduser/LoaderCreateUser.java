@@ -11,17 +11,17 @@ import binaryblitz.com.binaryblitz.di.modules.AppModule;
  * Created by ikakus on 10/27/17.
  */
 
-public class LoaderAddUser extends Loader<PresenterAddUser> {
+public class LoaderCreateUser extends Loader<PresenterCreateUser> {
     @Inject
-    PresenterAddUser mPresenter;
-    private ComponentAddUser mComponentAddUser;
-    public LoaderAddUser(Context context) {
+    PresenterCreateUser mPresenter;
+    private ComponentCreateUser mComponentCreateUser;
+    public LoaderCreateUser(Context context) {
         super(context);
-        mComponentAddUser = DaggerComponentAddUser.builder()
-                .moduleAddUser(new ModuleAddUser())
+        mComponentCreateUser = DaggerComponentCreateUser.builder()
+                .moduleCreateUser(new ModuleCreateUser())
                 .appModule(new AppModule(getContext()))
                 .build();
-        mComponentAddUser.inject(this);
+        mComponentCreateUser.inject(this);
     }
 
     @Override

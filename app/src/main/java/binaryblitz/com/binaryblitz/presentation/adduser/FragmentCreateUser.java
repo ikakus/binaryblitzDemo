@@ -2,13 +2,13 @@ package binaryblitz.com.binaryblitz.presentation.adduser;
 
 import android.app.DialogFragment;
 
-import binaryblitz.com.binaryblitz.presentation.adduser.interfaces.IAddUserView;
+import binaryblitz.com.binaryblitz.presentation.adduser.interfaces.ICreateUserView;
 
 /**
  * Created by ikakus on 10/27/17.
  */
 
-public class FragmentAddUser extends DialogFragment implements IAddUserView{
+public class FragmentCreateUser extends DialogFragment implements ICreateUserView{
     @Override
     public String getFirstName() {
         return null;

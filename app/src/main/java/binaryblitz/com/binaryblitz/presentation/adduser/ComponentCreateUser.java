@@ -11,7 +11,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {ModuleAddUser.class, NetworkingModule.class, AppModule.class})
-public interface ComponentAddUser {
-    void inject(LoaderAddUser loaderAddUser);
+@Component(modules = {ModuleCreateUser.class, NetworkingModule.class, AppModule.class})
+public interface ComponentCreateUser {
+    void inject(LoaderCreateUser loaderCreateUser);
 }

@@ -7,5 +7,5 @@ package binaryblitz.com.binaryblitz.presentation.maincontainer.interfaces;
 public interface IMainContainerView {
     void setUserList();
 
-    void showAddUser();
+    void showCreateUser();
 }

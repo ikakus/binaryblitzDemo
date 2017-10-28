@@ -3,6 +3,8 @@ package binaryblitz.com.binaryblitz.data.networking.request;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import binaryblitz.com.binaryblitz.data.presentation.CreateUserModel;
+
 /**
  * Created by ikakus on 10/26/17.
  */
@@ -10,14 +12,21 @@ import com.google.gson.annotations.SerializedName;
 public class UserModelP {
     @SerializedName("first_name")
     @Expose
-    public String firstName;
+    private String firstName;
     @SerializedName("last_name")
     @Expose
-    public String lastName;
+    private String lastName;
     @SerializedName("email")
     @Expose
-    public String email;
+    private String email;
     @SerializedName("avatar_url")
     @Expose
-    public String avatarUrl;
+    private String avatarUrl;
+
+    public UserModelP(CreateUserModel createUserModel) {
+        this.firstName = createUserModel.getFirstName();
+        this.lastName = createUserModel.getLastName();
+        this.email = createUserModel.getEmail();
+        this.avatarUrl = createUserModel.getAvatarUrl();
+    }
 }
