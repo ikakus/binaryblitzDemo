@@ -1,4 +1,4 @@
-package binaryblitz.com.binaryblitz.presentation.createuser;
+package binaryblitz.com.binaryblitz.utils;
 
 /**
  * Created by ikakus on 10/27/17.

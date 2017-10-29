@@ -1,4 +1,4 @@
-package binaryblitz.com.binaryblitz.presentation.createuser;
+package binaryblitz.com.binaryblitz.presentation.edituser;
 
 
 import android.app.Dialog;
@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import binaryblitz.com.binaryblitz.R;
-import binaryblitz.com.binaryblitz.presentation.createuser.interfaces.ICreateUserView;
+import binaryblitz.com.binaryblitz.presentation.edituser.interfaces.IEditUserView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -27,7 +27,7 @@ import butterknife.Unbinder;
  * Created by ikakus on 10/27/17.
  */
 
-public class DialogFragmentCreateUser extends DialogFragment implements ICreateUserView, LoaderManager.LoaderCallbacks<PresenterCreateUser> {
+public class DialogFragmentEditUser extends DialogFragment implements IEditUserView, LoaderManager.LoaderCallbacks<PresenterEditUser> {
     @BindView(R.id.imageView_avatar)
     ImageView mImageViewAvatar;
     @BindView(R.id.textInputLayout_firstName)
@@ -36,7 +36,7 @@ public class DialogFragmentCreateUser extends DialogFragment implements ICreateU
     TextInputLayout mTextInputLayoutLastName;
     @BindView(R.id.textInputLayout_email)
     TextInputLayout mTextInputLayoutEmail;
-    private PresenterCreateUser mPresenter;
+    private PresenterEditUser mPresenter;
     private Unbinder unbinder;
 
     @Override
@@ -125,18 +125,18 @@ public class DialogFragmentCreateUser extends DialogFragment implements ICreateU
     }
 
     @Override
-    public Loader<PresenterCreateUser> onCreateLoader(int id, Bundle args) {
-        return new LoaderCreateUser(getContext());
+    public Loader<PresenterEditUser> onCreateLoader(int id, Bundle args) {
+        return new LoaderEditUser(getContext());
     }
 
     @Override
-    public void onLoadFinished(Loader<PresenterCreateUser> loader, PresenterCreateUser presenter) {
+    public void onLoadFinished(Loader<PresenterEditUser> loader, PresenterEditUser presenter) {
         mPresenter = presenter;
         mPresenter.onViewAttached(this);
     }
 
     @Override
-    public void onLoaderReset(Loader<PresenterCreateUser> loader) {
+    public void onLoaderReset(Loader<PresenterEditUser> loader) {
         mPresenter = null;
     }
 
@@ -156,7 +156,7 @@ public class DialogFragmentCreateUser extends DialogFragment implements ICreateU
     public void onResume() {
         ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+        getDialog().getWindow().setAttributes((WindowManager.LayoutParams) params);
 
         super.onResume();
     }
@@ -170,7 +170,7 @@ public class DialogFragmentCreateUser extends DialogFragment implements ICreateU
                 mTextInputLayoutFirstName.setError(null);
                 mTextInputLayoutLastName.setError(null);
                 mTextInputLayoutEmail.setError(null);
-                mPresenter.onCreateUserClick();
+                mPresenter.onEditUserClick();
                 break;
         }
     }
