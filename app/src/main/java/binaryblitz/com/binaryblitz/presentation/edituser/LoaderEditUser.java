@@ -5,7 +5,7 @@ import android.support.v4.content.Loader;
 
 import javax.inject.Inject;
 
-import binaryblitz.com.binaryblitz.di.modules.AppModule;
+import binaryblitz.com.binaryblitz.App;
 
 /**
  * Created by ikakus on 10/27/17.
@@ -15,12 +15,10 @@ public class LoaderEditUser extends Loader<PresenterEditUser> {
     @Inject
     PresenterEditUser mPresenter;
     private ComponentEditUser mComponentEditUser;
+
     public LoaderEditUser(Context context) {
         super(context);
-        mComponentEditUser = DaggerComponentEditUser.builder()
-                .moduleEditUser(new ModuleEditUser())
-                .appModule(new AppModule(getContext()))
-                .build();
+        mComponentEditUser = App.getAppComponent().plusEditUserComponent(new ModuleEditUser());
         mComponentEditUser.inject(this);
     }
 

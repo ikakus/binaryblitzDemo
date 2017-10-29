@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import binaryblitz.com.binaryblitz.R;
+import binaryblitz.com.binaryblitz.data.presentation.UserModel;
 import binaryblitz.com.binaryblitz.presentation.edituser.interfaces.IEditUserView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,7 +21,7 @@ import butterknife.OnClick;
  * Created by ikakus on 10/28/17.
  */
 
-public class ActivityEditUser extends AppCompatActivity implements IEditUserView, LoaderManager.LoaderCallbacks<PresenterEditUser>{
+public class ActivityEditUser extends AppCompatActivity implements IEditUserView, LoaderManager.LoaderCallbacks<PresenterEditUser> {
 
     @BindView(R.id.imageView_avatar)
     ImageView mImageViewAvatar;
@@ -32,6 +33,7 @@ public class ActivityEditUser extends AppCompatActivity implements IEditUserView
     TextInputLayout mTextInputLayoutEmail;
 
     private PresenterEditUser mPresenter;
+    private UserModel userModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,12 @@ public class ActivityEditUser extends AppCompatActivity implements IEditUserView
         setContentView(R.layout.edit_user);
         ButterKnife.bind(this);
         getSupportLoaderManager().initLoader(0, null, this);
-
+        userModel = (UserModel) getIntent().getParcelableExtra(UserModel.USER_MODEL);
+        if(userModel != null){
+            setFirstName(userModel.getFirstName());
+            setLastName(userModel.getLastName());
+            setEmail(userModel.getEmail());
+        }
     }
 
     @Override
@@ -105,7 +112,6 @@ public class ActivityEditUser extends AppCompatActivity implements IEditUserView
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.onViewDetached();
     }
 
     @OnClick({R.id.imageView_avatar, R.id.buttonEdit})
@@ -117,7 +123,7 @@ public class ActivityEditUser extends AppCompatActivity implements IEditUserView
                 mTextInputLayoutFirstName.setError(null);
                 mTextInputLayoutLastName.setError(null);
                 mTextInputLayoutEmail.setError(null);
-                mPresenter.onEditUserClick();
+                mPresenter.onEditUserClick(userModel);
                 break;
         }
     }

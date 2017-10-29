@@ -47,29 +47,8 @@ public class AdapterUserList extends RecyclerView.Adapter<AdapterUserList.UserVi
 
     @Override
     public void onBindViewHolder(UserViewHolder holder, int position) {
-        try {
-            String url = mItems.get(position).getAvatarUrl();
-            if (url != null) {
-                Picasso.with(mContext)
-                        .load(url)
-                        .error(R.mipmap.ic_launcher_round)
-                        .into(holder.avatar);
-            } else {
-                Picasso.with(mContext)
-                        .load(R.mipmap.ic_launcher_round)
-                        .into(holder.avatar);
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-            Picasso.with(mContext)
-                    .load(R.mipmap.ic_launcher_round)
-                    .into(holder.avatar);
-        }
-        holder.id = mItems.get(position).getId();
-        holder.firstName.setText(mItems.get(position).getFirstName());
-        holder.lastNurname.setText(mItems.get(position).getLastName());
-        holder.email.setText(mItems.get(position).getEmail());
-
+        UserModel user = mItems.get(position);
+        holder.setUser(user);
     }
 
     @Override
@@ -91,8 +70,32 @@ public class AdapterUserList extends RecyclerView.Adapter<AdapterUserList.UserVi
         TextView lastNurname;
         @BindView(R.id.email)
         TextView email;
+        UserModel mUserModel;
 
-        int id;
+        public void setUser(UserModel userModel){
+            mUserModel = userModel;
+            try {
+                String url = userModel.getAvatarUrl();
+                if (url != null) {
+                    Picasso.with(mContext)
+                            .load(url)
+                            .error(R.mipmap.ic_launcher_round)
+                            .into(avatar);
+                } else {
+                    Picasso.with(mContext)
+                            .load(R.mipmap.ic_launcher_round)
+                            .into(avatar);
+                }
+            } catch (Exception e) {
+                Timber.e(e);
+                Picasso.with(mContext)
+                        .load(R.mipmap.ic_launcher_round)
+                        .into(avatar);
+            }
+            firstName.setText(userModel.getFirstName());
+            lastNurname.setText(userModel.getLastName());
+            email.setText(userModel.getEmail());
+        }
 
         public UserViewHolder(View itemView) {
             super(itemView);
@@ -103,7 +106,7 @@ public class AdapterUserList extends RecyclerView.Adapter<AdapterUserList.UserVi
         @Override
         public void onClick(View view) {
             if(mListener!= null) {
-                mListener.onUserItemClicked(id);
+                mListener.onUserItemClicked(mUserModel);
             }
         }
     }

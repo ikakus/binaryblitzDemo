@@ -25,6 +25,6 @@ public interface ApiEndpointInterface {
     @POST("users.json")
     Observable<Response<BaseResponse>> createUser(@Body CreateUserRequestW createUserRequestW);
 
-    @PATCH("users{id}.json")
+    @PATCH("users/{id}.json")
     Observable<Response<BaseResponse>> patchUser(@Path("id") int id, @Body EditUserRequestW createUserRequestW);
 }

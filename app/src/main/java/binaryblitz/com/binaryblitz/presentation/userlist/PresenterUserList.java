@@ -2,6 +2,7 @@ package binaryblitz.com.binaryblitz.presentation.userlist;
 
 import java.util.List;
 
+import binaryblitz.com.binaryblitz.UserInteractionBus;
 import binaryblitz.com.binaryblitz.data.presentation.UserModel;
 import binaryblitz.com.binaryblitz.presentation.Presenter;
 import binaryblitz.com.binaryblitz.presentation.userlist.interfaces.IUserListInteractor;
@@ -13,20 +14,22 @@ import binaryblitz.com.binaryblitz.presentation.userlist.interfaces.IViewUserLis
 
 public class PresenterUserList implements Presenter<IViewUserList>,IUserListInteractor.UsersLoadedListener, IViewUserList.OnUserItemClickListener {
     private final IUserListInteractor mInteractor;
+    private final UserInteractionBus mBus;
     private IViewUserList mView;
-    private List<UserModel> mUserMoodels;
+    private List<UserModel> mUserModels;
 
-    public PresenterUserList(IUserListInteractor iUserListInteractor) {
+    public PresenterUserList(IUserListInteractor iUserListInteractor, UserInteractionBus userInteractionBus) {
         mInteractor = iUserListInteractor;
+        mBus = userInteractionBus;
     }
 
     @Override
     public void onViewAttached(IViewUserList view) {
         mView = view;
-        if(mUserMoodels == null) {
+        if(mUserModels == null) {
             mInteractor.getUsers(this);
         }else {
-            onSuccess(mUserMoodels);
+            onSuccess(mUserModels);
         }
     }
 
@@ -47,12 +50,13 @@ public class PresenterUserList implements Presenter<IViewUserList>,IUserListInte
 
     @Override
     public void onSuccess(List<UserModel> userModels) {
-        mUserMoodels = userModels;
+        mUserModels = userModels;
         mView.fillUsers(userModels);
     }
 
     @Override
-    public void onUserItemClicked(int userId) {
-        mView.showText("User id:" + userId);
+    public void onUserItemClicked(UserModel userModel) {
+        mBus.onUserEditClick(userModel);
+//        mView.showText("User id:" + userModel.getId());
     }
 }

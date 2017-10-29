@@ -5,7 +5,8 @@ import android.support.v4.content.Loader;
 
 import javax.inject.Inject;
 
-import binaryblitz.com.binaryblitz.di.modules.AppModule;
+import binaryblitz.com.binaryblitz.App;
+import binaryblitz.com.binaryblitz.presentation.edituser.ModuleEditUser;
 
 
 /**
@@ -19,11 +20,9 @@ public class LoaderMainContainer extends Loader<PresenterMainContainer> {
 
     public LoaderMainContainer(Context context) {
         super(context);
-        mComponentMainContainer = DaggerComponentMainContainer.builder()
-                .moduleMainContainer(new ModuleMainContainer())
-                .appModule(new AppModule(getContext()))
-                .build();
+        mComponentMainContainer  = App.getAppComponent().plusMainContainerComponent(new ModuleMainContainer());
         mComponentMainContainer.inject(this);
+
     }
 
     @Override

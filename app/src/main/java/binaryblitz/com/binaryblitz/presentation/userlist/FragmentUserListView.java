@@ -81,7 +81,7 @@ public class FragmentUserListView extends Fragment implements IViewUserList, Loa
     }
 
     @Override
-    public void onUserItemClicked(int userId) {
-        mPresenter.onUserItemClicked(userId);
+    public void onUserItemClicked(UserModel userModel) {
+        mPresenter.onUserItemClicked(userModel);
     }
 }

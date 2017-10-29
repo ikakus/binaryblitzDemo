@@ -7,16 +7,15 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import binaryblitz.com.binaryblitz.R;
+import binaryblitz.com.binaryblitz.data.presentation.UserModel;
 import binaryblitz.com.binaryblitz.presentation.edituser.interfaces.IEditUserView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +37,7 @@ public class DialogFragmentEditUser extends DialogFragment implements IEditUserV
     TextInputLayout mTextInputLayoutEmail;
     private PresenterEditUser mPresenter;
     private Unbinder unbinder;
+    private UserModel userModel;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -55,12 +55,18 @@ public class DialogFragmentEditUser extends DialogFragment implements IEditUserV
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.edit_user, container, false);
         unbinder = ButterKnife.bind(this, rootView);
-        WindowManager.LayoutParams wmlp = getDialog().getWindow().getAttributes();
-        wmlp.gravity = Gravity.FILL_HORIZONTAL;
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            userModel = bundle.getParcelable(UserModel.USER_MODEL);
+            if(userModel != null){
+                setFirstName(userModel.getFirstName());
+                setLastName(userModel.getLastName());
+                setEmail(userModel.getEmail());
+            }
+        }
         return rootView;
     }
 
@@ -152,15 +158,6 @@ public class DialogFragmentEditUser extends DialogFragment implements IEditUserV
         super.onDetach();
     }
 
-    @Override
-    public void onResume() {
-        ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
-        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        getDialog().getWindow().setAttributes((WindowManager.LayoutParams) params);
-
-        super.onResume();
-    }
-
     @OnClick({R.id.imageView_avatar, R.id.buttonEdit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -170,7 +167,7 @@ public class DialogFragmentEditUser extends DialogFragment implements IEditUserV
                 mTextInputLayoutFirstName.setError(null);
                 mTextInputLayoutLastName.setError(null);
                 mTextInputLayoutEmail.setError(null);
-                mPresenter.onEditUserClick();
+                mPresenter.onEditUserClick(userModel);
                 break;
         }
     }

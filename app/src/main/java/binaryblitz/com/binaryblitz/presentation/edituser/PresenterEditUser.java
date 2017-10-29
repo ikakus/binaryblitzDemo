@@ -2,6 +2,7 @@ package binaryblitz.com.binaryblitz.presentation.edituser;
 
 import binaryblitz.com.binaryblitz.data.networking.BaseResponse;
 import binaryblitz.com.binaryblitz.data.presentation.EditUserModel;
+import binaryblitz.com.binaryblitz.data.presentation.UserModel;
 import binaryblitz.com.binaryblitz.presentation.Presenter;
 import binaryblitz.com.binaryblitz.presentation.edituser.interfaces.IEditUserInteractor;
 import binaryblitz.com.binaryblitz.presentation.edituser.interfaces.IEditUserView;
@@ -47,7 +48,7 @@ public class PresenterEditUser implements Presenter<IEditUserView>, IEditUserInt
 
     }
 
-    public void onEditUserClick() {
+    public void onEditUserClick(UserModel userModel) {
         boolean allFieldsValid = true;
         if (!validateFirstName()) {
             mView.showErrorFirstName("Mandatory field");
@@ -65,14 +66,14 @@ public class PresenterEditUser implements Presenter<IEditUserView>, IEditUserInt
         }
 
         if (allFieldsValid) {
-            EditUserModel createUserModel = new EditUserModel(
-                    1,
+            EditUserModel editUserModel = new EditUserModel(
+                    userModel.getId(),
                     mView.getFirstName(),
                     mView.getLastName(),
                     mView.getEmail(),
                     mView.getAvatarUrl()
             );
-            mInteractorEditUser.editUser(createUserModel, this);
+            mInteractorEditUser.editUser(editUserModel, this);
         }
     }
 

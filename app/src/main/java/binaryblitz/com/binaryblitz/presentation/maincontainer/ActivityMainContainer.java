@@ -1,5 +1,6 @@
 package binaryblitz.com.binaryblitz.presentation.maincontainer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
@@ -9,7 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import binaryblitz.com.binaryblitz.R;
+import binaryblitz.com.binaryblitz.data.presentation.UserModel;
 import binaryblitz.com.binaryblitz.presentation.createuser.DialogFragmentCreateUser;
+import binaryblitz.com.binaryblitz.presentation.edituser.ActivityEditUser;
+import binaryblitz.com.binaryblitz.presentation.edituser.DialogFragmentEditUser;
 import binaryblitz.com.binaryblitz.presentation.maincontainer.interfaces.IMainContainerView;
 import binaryblitz.com.binaryblitz.presentation.userlist.FragmentUserListView;
 
@@ -59,6 +63,23 @@ public class ActivityMainContainer extends AppCompatActivity implements IMainCon
     public void showCreateUser() {
         DialogFragmentCreateUser dialogFragmentCreateUser = new DialogFragmentCreateUser();
         dialogFragmentCreateUser.show(getSupportFragmentManager(), "dialog_create_user");
+    }
+
+    @Override
+    public void showUserEdit(UserModel userModel) {
+        if(mTwoPane){
+            DialogFragmentEditUser fragment = new DialogFragmentEditUser();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(UserModel.USER_MODEL, userModel);
+            fragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.detail_container, fragment)
+                    .commitAllowingStateLoss();
+        }else {
+            Intent intent = new Intent(this, ActivityEditUser.class);
+            intent.putExtra(UserModel.USER_MODEL, userModel);
+            startActivity(intent);
+        }
     }
 
     @Override

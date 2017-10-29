@@ -13,6 +13,6 @@ public interface IViewUserList {
     void fillUsers(List<UserModel> userModels);
 
     interface OnUserItemClickListener {
-        void onUserItemClicked(int userId);
+        void onUserItemClicked(UserModel userId);
     }
 }

@@ -2,8 +2,7 @@ package binaryblitz.com.binaryblitz.presentation.maincontainer;
 
 import javax.inject.Singleton;
 
-import binaryblitz.com.binaryblitz.di.modules.AppModule;
-import dagger.Component;
+import dagger.Subcomponent;
 
 /**
  * Created by ikakus on 10/27/17.
@@ -11,7 +10,7 @@ import dagger.Component;
 
 
 @Singleton
-@Component(modules = {ModuleMainContainer.class, AppModule.class})
-interface ComponentMainContainer {
+@Subcomponent(modules = {ModuleMainContainer.class})
+public interface ComponentMainContainer {
     void inject(LoaderMainContainer loaderMainContainer);
 }
