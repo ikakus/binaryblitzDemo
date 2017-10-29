@@ -14,6 +14,8 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import binaryblitz.com.binaryblitz.R;
 import binaryblitz.com.binaryblitz.data.presentation.UserModel;
 import binaryblitz.com.binaryblitz.presentation.edituser.interfaces.IEditUserView;
@@ -21,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import timber.log.Timber;
 
 /**
  * Created by ikakus on 10/27/17.
@@ -65,6 +68,7 @@ public class DialogFragmentEditUser extends DialogFragment implements IEditUserV
                 setFirstName(userModel.getFirstName());
                 setLastName(userModel.getLastName());
                 setEmail(userModel.getEmail());
+                setAvatar(userModel.getAvatarUrl());
             }
         }
         return rootView;
@@ -106,6 +110,28 @@ public class DialogFragmentEditUser extends DialogFragment implements IEditUserV
     }
 
     @Override
+    public void setAvatar(String avatarUrl) {
+        try {
+
+            if (avatarUrl != null) {
+                Picasso.with(getContext())
+                        .load(avatarUrl)
+                        .error(R.mipmap.ic_launcher_round)
+                        .into(mImageViewAvatar);
+            } else {
+                Picasso.with(getContext())
+                        .load(R.mipmap.ic_launcher_round)
+                        .into(mImageViewAvatar);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+            Picasso.with(getContext())
+                    .load(R.mipmap.ic_launcher_round)
+                    .into(mImageViewAvatar);
+        }
+    }
+
+    @Override
     public void showErrorFirstName(String errorMessage) {
         mTextInputLayoutFirstName.setError(errorMessage);
     }
@@ -127,7 +153,7 @@ public class DialogFragmentEditUser extends DialogFragment implements IEditUserV
 
     @Override
     public void close() {
-        dismiss();
+        Toast.makeText(getContext(), "User updated successfully", Toast.LENGTH_SHORT).show();
     }
 
     @Override

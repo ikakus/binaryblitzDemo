@@ -3,13 +3,18 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:maxWidth="550dp"
+    android:minWidth="350dp"
+    android:padding="16dp">
 
     <android.support.constraint.ConstraintLayout
+        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:maxWidth="550dp"
+        android:minWidth="350dp">
 
         <ImageView
             android:id="@+id/imageView_avatar"

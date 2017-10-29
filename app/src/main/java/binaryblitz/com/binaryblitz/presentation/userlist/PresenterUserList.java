@@ -27,6 +27,7 @@ public class PresenterUserList implements Presenter<IViewUserList>,IUserListInte
     public void onViewAttached(IViewUserList view) {
         mView = view;
         if(mUserModels == null) {
+            mView.showLoading();
             mInteractor.getUsers(this);
         }else {
             onSuccess(mUserModels);
@@ -45,11 +46,13 @@ public class PresenterUserList implements Presenter<IViewUserList>,IUserListInte
 
     @Override
     public void onError(String error) {
+        mView.hideLoading();
         mView.showText(error);
     }
 
     @Override
     public void onSuccess(List<UserModel> userModels) {
+        mView.hideLoading();
         mUserModels = userModels;
         mView.fillUsers(userModels);
     }
@@ -58,5 +61,9 @@ public class PresenterUserList implements Presenter<IViewUserList>,IUserListInte
     public void onUserItemClicked(UserModel userModel) {
         mBus.onUserEditClick(userModel);
 //        mView.showText("User id:" + userModel.getId());
+    }
+
+    public void reload(){
+        mInteractor.getUsers(this);
     }
 }

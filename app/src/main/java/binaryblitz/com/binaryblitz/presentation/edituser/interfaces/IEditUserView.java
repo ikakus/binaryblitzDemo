@@ -19,6 +19,8 @@ public interface IEditUserView {
 
     String getAvatarUrl();
 
+    void setAvatar(String avatarUrl);
+
     void showErrorFirstName(String errorMessage);
 
     void showErrorLastName(String errorMessage);

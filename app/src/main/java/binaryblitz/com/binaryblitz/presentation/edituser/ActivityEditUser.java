@@ -10,12 +10,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import binaryblitz.com.binaryblitz.R;
 import binaryblitz.com.binaryblitz.data.presentation.UserModel;
 import binaryblitz.com.binaryblitz.presentation.edituser.interfaces.IEditUserView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 /**
  * Created by ikakus on 10/28/17.
@@ -42,10 +45,11 @@ public class ActivityEditUser extends AppCompatActivity implements IEditUserView
         ButterKnife.bind(this);
         getSupportLoaderManager().initLoader(0, null, this);
         userModel = (UserModel) getIntent().getParcelableExtra(UserModel.USER_MODEL);
-        if(userModel != null){
+        if (userModel != null) {
             setFirstName(userModel.getFirstName());
             setLastName(userModel.getLastName());
             setEmail(userModel.getEmail());
+            setAvatar(userModel.getAvatarUrl());
         }
     }
 
@@ -85,6 +89,28 @@ public class ActivityEditUser extends AppCompatActivity implements IEditUserView
     }
 
     @Override
+    public void setAvatar(String avatarUrl) {
+        try {
+
+            if (avatarUrl != null) {
+                Picasso.with(this)
+                        .load(avatarUrl)
+                        .error(R.mipmap.ic_launcher_round)
+                        .into(mImageViewAvatar);
+            } else {
+                Picasso.with(this)
+                        .load(R.mipmap.ic_launcher_round)
+                        .into(mImageViewAvatar);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+            Picasso.with(this)
+                    .load(R.mipmap.ic_launcher_round)
+                    .into(mImageViewAvatar);
+        }
+    }
+
+    @Override
     public void showErrorFirstName(String errorMessage) {
         mTextInputLayoutFirstName.setError(errorMessage);
     }
@@ -106,6 +132,7 @@ public class ActivityEditUser extends AppCompatActivity implements IEditUserView
 
     @Override
     public void close() {
+        Toast.makeText(this, "User updated successfully", Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -143,4 +170,6 @@ public class ActivityEditUser extends AppCompatActivity implements IEditUserView
     public void onLoaderReset(Loader<PresenterEditUser> loader) {
         mPresenter = null;
     }
+
+
 }
