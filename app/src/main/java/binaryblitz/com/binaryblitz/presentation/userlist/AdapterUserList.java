@@ -61,6 +61,9 @@ public class AdapterUserList extends RecyclerView.Adapter<AdapterUserList.UserVi
             }
         } catch (Exception e) {
             Timber.e(e);
+            Picasso.with(mContext)
+                    .load(R.mipmap.ic_launcher_round)
+                    .into(holder.avatar);
         }
         holder.id = mItems.get(position).getId();
         holder.firstName.setText(mItems.get(position).getFirstName());
