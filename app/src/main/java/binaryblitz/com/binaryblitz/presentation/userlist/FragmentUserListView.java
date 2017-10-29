@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,8 @@ import butterknife.Unbinder;
 
 public class FragmentUserListView extends Fragment implements IViewUserList, LoaderManager.LoaderCallbacks<PresenterUserList>,IViewUserList.OnUserItemClickListener {
 
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
     Unbinder unbinder;
@@ -45,6 +48,13 @@ public class FragmentUserListView extends Fragment implements IViewUserList, Loa
         mAdapter = new AdapterUserList(getContext());
         mAdapter.setListener(this);
         mRecyclerView.setAdapter(mAdapter);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.reload();
+            }
+        });
         return rootView;
     }
 
@@ -60,12 +70,12 @@ public class FragmentUserListView extends Fragment implements IViewUserList, Loa
 
     @Override
     public void hideLoading() {
-
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void showLoading() {
-
+        mSwipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
