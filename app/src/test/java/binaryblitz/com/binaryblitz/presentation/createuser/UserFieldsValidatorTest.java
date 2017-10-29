@@ -18,14 +18,20 @@ public class UserFieldsValidatorTest {
     }
 
     @Test
-    public void email_isNotCorrect() throws Exception {
+    public void email_isNotCorrect_noAt() throws Exception {
         boolean result = UserFieldsValidator.validateEmail("asdasd.com");
         assertEquals(false, result);
     }
 
     @Test
-    public void email_isNotCorrect_2() throws Exception {
+    public void email_isNotCorrect_noDotCom() throws Exception {
         boolean result = UserFieldsValidator.validateEmail("asd@asd");
+        assertEquals(false, result);
+    }
+
+    @Test
+    public void email_isNotCorrect_noText() throws Exception {
+        boolean result = UserFieldsValidator.validateEmail("");
         assertEquals(false, result);
     }
 }
