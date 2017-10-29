@@ -22,8 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.createuser.ActivityCreateUser"/>
-        <activity android:name=".presentation.edituser.ActivityEditUser"/>
+        <activity android:name=".presentation.edituser.ActivityEditUser"
+            android:label="Edit User"/>
     </application>
 
 </manifest>

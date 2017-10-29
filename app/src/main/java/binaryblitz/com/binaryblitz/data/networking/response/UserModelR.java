@@ -3,6 +3,8 @@ package binaryblitz.com.binaryblitz.data.networking.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 /**
  * Created by ikakus on 10/26/17.
  */
@@ -25,10 +27,10 @@ public class UserModelR {
     private String avatarUrl;
     @SerializedName("created_at")
     @Expose
-    private String createdAt;
+    private Date createdAt;
     @SerializedName("updated_at")
     @Expose
-    private String updatedAt;
+    private Date updatedAt;
 
     public Integer getId() {
         return id;
@@ -50,11 +52,11 @@ public class UserModelR {
         return avatarUrl;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public String getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 }

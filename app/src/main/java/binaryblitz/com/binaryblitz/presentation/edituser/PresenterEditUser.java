@@ -1,6 +1,6 @@
 package binaryblitz.com.binaryblitz.presentation.edituser;
 
-import binaryblitz.com.binaryblitz.data.networking.BaseResponse;
+import binaryblitz.com.binaryblitz.data.networking.response.UserModelR;
 import binaryblitz.com.binaryblitz.data.presentation.EditUserModel;
 import binaryblitz.com.binaryblitz.data.presentation.UserModel;
 import binaryblitz.com.binaryblitz.presentation.Presenter;
@@ -98,7 +98,7 @@ public class PresenterEditUser implements Presenter<IEditUserView>, IEditUserInt
     }
 
     @Override
-    public void onSuccess(BaseResponse userModels) {
+    public void onSuccess(UserModelR userModels) {
         mView.close();
     }
 }

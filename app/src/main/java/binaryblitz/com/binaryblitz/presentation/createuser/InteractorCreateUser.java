@@ -3,9 +3,9 @@ package binaryblitz.com.binaryblitz.presentation.createuser;
 import binaryblitz.com.binaryblitz.data.api.ApiEndpointInterface;
 import binaryblitz.com.binaryblitz.data.api.ErrorHandlingSubscriber;
 import binaryblitz.com.binaryblitz.data.api.IResponseCallback;
-import binaryblitz.com.binaryblitz.data.networking.BaseResponse;
 import binaryblitz.com.binaryblitz.data.networking.request.CreateUserRequestW;
 import binaryblitz.com.binaryblitz.data.networking.request.UserModelP;
+import binaryblitz.com.binaryblitz.data.networking.response.UserModelR;
 import binaryblitz.com.binaryblitz.data.presentation.CreateUserModel;
 import binaryblitz.com.binaryblitz.presentation.createuser.interfaces.ICreateUserInteractor;
 import retrofit2.Response;
@@ -18,7 +18,7 @@ import rx.schedulers.Schedulers;
  * Created by ikakus on 10/27/17.
  */
 
-public class InteractorCreateUser implements ICreateUserInteractor, IResponseCallback<BaseResponse> {
+public class InteractorCreateUser implements ICreateUserInteractor, IResponseCallback<UserModelR> {
 
     private final ApiEndpointInterface mApi;
     private UserAddedListener mListener;
@@ -33,7 +33,7 @@ public class InteractorCreateUser implements ICreateUserInteractor, IResponseCal
         mListener = listener;
         CreateUserRequestW createUserRequestW = new CreateUserRequestW();
         createUserRequestW.setUser(new UserModelP(createUserModel));
-        Observable<Response<BaseResponse>> call = mApi.createUser(createUserRequestW);
+        Observable<Response<UserModelR>> call = mApi.createUser(createUserRequestW);
         mSubscription = call
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -41,17 +41,17 @@ public class InteractorCreateUser implements ICreateUserInteractor, IResponseCal
     }
 
     @Override
-    public void onResponse(BaseResponse rModel) {
-
+    public void onResponse(UserModelR rModel) {
+        mListener.onSuccess(rModel);
     }
 
     @Override
     public void onError(int errorCode, String errorMessage) {
-
+        mListener.onError(errorMessage);
     }
 
-    private class CreateUserSubscriber extends ErrorHandlingSubscriber<BaseResponse> {
-        public CreateUserSubscriber(IResponseCallback<BaseResponse> iResponseCallback) {
+    private class CreateUserSubscriber extends ErrorHandlingSubscriber<UserModelR> {
+        public CreateUserSubscriber(IResponseCallback<UserModelR> iResponseCallback) {
             super(iResponseCallback);
         }
     }

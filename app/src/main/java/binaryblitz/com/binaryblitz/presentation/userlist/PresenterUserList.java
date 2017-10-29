@@ -1,5 +1,6 @@
 package binaryblitz.com.binaryblitz.presentation.userlist;
 
+import java.util.Collections;
 import java.util.List;
 
 import binaryblitz.com.binaryblitz.UserInteractionBus;
@@ -52,6 +53,7 @@ public class PresenterUserList implements Presenter<IViewUserList>,IUserListInte
 
     @Override
     public void onSuccess(List<UserModel> userModels) {
+        Collections.sort(userModels, Collections.reverseOrder());
         mView.hideLoading();
         mUserModels = userModels;
         mView.fillUsers(userModels);
@@ -60,7 +62,6 @@ public class PresenterUserList implements Presenter<IViewUserList>,IUserListInte
     @Override
     public void onUserItemClicked(UserModel userModel) {
         mBus.onUserEditClick(userModel);
-//        mView.showText("User id:" + userModel.getId());
     }
 
     public void reload(){

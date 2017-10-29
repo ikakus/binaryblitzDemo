@@ -1,6 +1,6 @@
 package binaryblitz.com.binaryblitz.presentation.createuser.interfaces;
 
-import binaryblitz.com.binaryblitz.data.networking.BaseResponse;
+import binaryblitz.com.binaryblitz.data.networking.response.UserModelR;
 import binaryblitz.com.binaryblitz.data.presentation.CreateUserModel;
 
 /**
@@ -13,6 +13,6 @@ public interface ICreateUserInteractor {
     interface UserAddedListener {
         void onError(String error);
 
-        void onSuccess(BaseResponse userModels);
+        void onSuccess(UserModelR userModels);
     }
 }

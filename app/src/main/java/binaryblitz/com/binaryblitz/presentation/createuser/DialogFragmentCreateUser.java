@@ -57,7 +57,7 @@ public class DialogFragmentCreateUser extends DialogFragment implements ICreateU
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.edit_user, container, false);
+        View rootView = inflater.inflate(R.layout.create_user, container, false);
         unbinder = ButterKnife.bind(this, rootView);
         WindowManager.LayoutParams wmlp = getDialog().getWindow().getAttributes();
         wmlp.gravity = Gravity.FILL_HORIZONTAL;
@@ -121,6 +121,7 @@ public class DialogFragmentCreateUser extends DialogFragment implements ICreateU
 
     @Override
     public void close() {
+        Toast.makeText(getContext(), "User created", Toast.LENGTH_SHORT).show();
         dismiss();
     }
 
@@ -161,12 +162,12 @@ public class DialogFragmentCreateUser extends DialogFragment implements ICreateU
         super.onResume();
     }
 
-    @OnClick({R.id.imageView_avatar, R.id.buttonEdit})
+    @OnClick({R.id.imageView_avatar, R.id.buttonCreate})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imageView_avatar:
                 break;
-            case R.id.buttonEdit:
+            case R.id.buttonCreate:
                 mTextInputLayoutFirstName.setError(null);
                 mTextInputLayoutLastName.setError(null);
                 mTextInputLayoutEmail.setError(null);

@@ -1,6 +1,6 @@
 package binaryblitz.com.binaryblitz.presentation.edituser.interfaces;
 
-import binaryblitz.com.binaryblitz.data.networking.BaseResponse;
+import binaryblitz.com.binaryblitz.data.networking.response.UserModelR;
 import binaryblitz.com.binaryblitz.data.presentation.EditUserModel;
 
 /**
@@ -13,6 +13,6 @@ public interface IEditUserInteractor {
     interface UserEditListener {
         void onError(String error);
 
-        void onSuccess(BaseResponse userModels);
+        void onSuccess(UserModelR userModels);
     }
 }

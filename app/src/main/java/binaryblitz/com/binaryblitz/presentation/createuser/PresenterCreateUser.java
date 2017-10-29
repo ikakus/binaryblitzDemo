@@ -1,6 +1,6 @@
 package binaryblitz.com.binaryblitz.presentation.createuser;
 
-import binaryblitz.com.binaryblitz.data.networking.BaseResponse;
+import binaryblitz.com.binaryblitz.data.networking.response.UserModelR;
 import binaryblitz.com.binaryblitz.data.presentation.CreateUserModel;
 import binaryblitz.com.binaryblitz.presentation.Presenter;
 import binaryblitz.com.binaryblitz.presentation.createuser.interfaces.ICreateUserInteractor;
@@ -96,7 +96,7 @@ public class PresenterCreateUser implements Presenter<ICreateUserView>, ICreateU
     }
 
     @Override
-    public void onSuccess(BaseResponse userModels) {
+    public void onSuccess(UserModelR userModels) {
         mView.close();
     }
 }

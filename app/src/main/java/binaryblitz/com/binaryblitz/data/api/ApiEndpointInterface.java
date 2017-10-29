@@ -2,7 +2,6 @@ package binaryblitz.com.binaryblitz.data.api;
 
 import java.util.List;
 
-import binaryblitz.com.binaryblitz.data.networking.BaseResponse;
 import binaryblitz.com.binaryblitz.data.networking.request.CreateUserRequestW;
 import binaryblitz.com.binaryblitz.data.networking.request.EditUserRequestW;
 import binaryblitz.com.binaryblitz.data.networking.response.UserModelR;
@@ -23,8 +22,8 @@ public interface ApiEndpointInterface {
     Observable<Response<List<UserModelR>>> getUsers();
 
     @POST("users.json")
-    Observable<Response<BaseResponse>> createUser(@Body CreateUserRequestW createUserRequestW);
+    Observable<Response<UserModelR>> createUser(@Body CreateUserRequestW createUserRequestW);
 
     @PATCH("users/{id}.json")
-    Observable<Response<BaseResponse>> patchUser(@Path("id") int id, @Body EditUserRequestW createUserRequestW);
+    Observable<Response<UserModelR>> patchUser(@Path("id") int id, @Body EditUserRequestW createUserRequestW);
 }

@@ -1,11 +1,14 @@
 package binaryblitz.com.binaryblitz.presentation.edituser;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -15,6 +18,7 @@ import com.squareup.picasso.Picasso;
 import binaryblitz.com.binaryblitz.R;
 import binaryblitz.com.binaryblitz.data.presentation.UserModel;
 import binaryblitz.com.binaryblitz.presentation.edituser.interfaces.IEditUserView;
+import binaryblitz.com.binaryblitz.presentation.maincontainer.ActivityMainContainer;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -42,6 +46,10 @@ public class ActivityEditUser extends AppCompatActivity implements IEditUserView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_user);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         ButterKnife.bind(this);
         getSupportLoaderManager().initLoader(0, null, this);
         userModel = (UserModel) getIntent().getParcelableExtra(UserModel.USER_MODEL);
@@ -171,5 +179,19 @@ public class ActivityEditUser extends AppCompatActivity implements IEditUserView
         mPresenter = null;
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            // This ID represents the Home or Up button. In the case of this
+            // activity, the Up button is shown. For
+            // more details, see the Navigation pattern on Android Design:
+            //
+            // http://developer.android.com/design/patterns/navigation.html#up-vs-back
+            //
+            navigateUpTo(new Intent(this, ActivityMainContainer.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
