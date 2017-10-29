@@ -13,18 +13,25 @@ import timber.log.Timber;
 
 public class App extends Application {
 
-    private AppComponent mAppComponent;
+    private static AppComponent sAppComponent;
+    private static App mContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mContext = this;
 
-        mAppComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .build();
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }
     }
 
+    public static AppComponent getAppComponent(){
+        if(sAppComponent == null){
+            sAppComponent = DaggerAppComponent.builder()
+                    .appModule(new AppModule(mContext))
+                    .build();
+        }
+        return sAppComponent;
+    }
 }

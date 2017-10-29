@@ -4,11 +4,14 @@ import java.util.List;
 
 import binaryblitz.com.binaryblitz.data.networking.BaseResponse;
 import binaryblitz.com.binaryblitz.data.networking.request.CreateUserRequestW;
+import binaryblitz.com.binaryblitz.data.networking.request.EditUserRequestW;
 import binaryblitz.com.binaryblitz.data.networking.response.UserModelR;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import rx.Observable;
 
 /**
@@ -21,4 +24,7 @@ public interface ApiEndpointInterface {
 
     @POST("users.json")
     Observable<Response<BaseResponse>> createUser(@Body CreateUserRequestW createUserRequestW);
+
+    @PATCH("users/{id}.json")
+    Observable<Response<BaseResponse>> patchUser(@Path("id") int id, @Body EditUserRequestW createUserRequestW);
 }

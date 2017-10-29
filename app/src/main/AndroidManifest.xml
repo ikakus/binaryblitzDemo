@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.createuser.ActivityCreateUser"/>
+        <activity android:name=".presentation.edituser.ActivityEditUser"/>
     </application>
 
 </manifest>

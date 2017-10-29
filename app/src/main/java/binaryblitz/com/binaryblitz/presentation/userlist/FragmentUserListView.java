@@ -59,6 +59,16 @@ public class FragmentUserListView extends Fragment implements IViewUserList, Loa
     }
 
     @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
     public Loader<PresenterUserList> onCreateLoader(int i, Bundle bundle) {
         return new LoaderUserList(getContext());
     }
@@ -81,7 +91,7 @@ public class FragmentUserListView extends Fragment implements IViewUserList, Loa
     }
 
     @Override
-    public void onUserItemClicked(int userId) {
-        mPresenter.onUserItemClicked(userId);
+    public void onUserItemClicked(UserModel userModel) {
+        mPresenter.onUserItemClicked(userModel);
     }
 }

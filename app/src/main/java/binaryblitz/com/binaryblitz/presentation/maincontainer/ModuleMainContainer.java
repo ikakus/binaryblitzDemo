@@ -2,6 +2,7 @@ package binaryblitz.com.binaryblitz.presentation.maincontainer;
 
 import javax.inject.Singleton;
 
+import binaryblitz.com.binaryblitz.UserInteractionBus;
 import binaryblitz.com.binaryblitz.presentation.maincontainer.interfaces.IMainContainerInteractor;
 import dagger.Module;
 import dagger.Provides;
@@ -15,8 +16,8 @@ import dagger.Provides;
 public class ModuleMainContainer {
     @Singleton
     @Provides
-    public PresenterMainContainer providePresenter(){
-        return new PresenterMainContainer();
+    public PresenterMainContainer providePresenter(UserInteractionBus userInteractionBus){
+        return new PresenterMainContainer(userInteractionBus);
     }
 
     @Singleton

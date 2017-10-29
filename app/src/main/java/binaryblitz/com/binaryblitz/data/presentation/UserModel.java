@@ -1,12 +1,17 @@
 package binaryblitz.com.binaryblitz.data.presentation;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import binaryblitz.com.binaryblitz.data.networking.response.UserModelR;
 
 /**
  * Created by ikakus on 10/26/17.
  */
 
-public class UserModel {
+public class UserModel implements Parcelable {
+    public static final String USER_MODEL= "user_model";
+
     private Integer id;
     private String firstName;
     private String lastName;
@@ -52,4 +57,42 @@ public class UserModel {
     public String getUpdatedAt() {
         return updatedAt;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.id);
+        dest.writeString(this.firstName);
+        dest.writeString(this.lastName);
+        dest.writeString(this.email);
+        dest.writeString(this.avatarUrl);
+        dest.writeString(this.createdAt);
+        dest.writeString(this.updatedAt);
+    }
+
+    protected UserModel(Parcel in) {
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.firstName = in.readString();
+        this.lastName = in.readString();
+        this.email = in.readString();
+        this.avatarUrl = in.readString();
+        this.createdAt = in.readString();
+        this.updatedAt = in.readString();
+    }
+
+    public static final Parcelable.Creator<UserModel> CREATOR = new Parcelable.Creator<UserModel>() {
+        @Override
+        public UserModel createFromParcel(Parcel source) {
+            return new UserModel(source);
+        }
+
+        @Override
+        public UserModel[] newArray(int size) {
+            return new UserModel[size];
+        }
+    };
 }

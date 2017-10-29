@@ -1,4 +1,4 @@
-package binaryblitz.com.binaryblitz.presentation.createuser;
+package binaryblitz.com.binaryblitz.presentation.edituser;
 
 import android.content.Context;
 import android.support.v4.content.Loader;
@@ -11,15 +11,15 @@ import binaryblitz.com.binaryblitz.App;
  * Created by ikakus on 10/27/17.
  */
 
-public class LoaderCreateUser extends Loader<PresenterCreateUser> {
+public class LoaderEditUser extends Loader<PresenterEditUser> {
     @Inject
-    PresenterCreateUser mPresenter;
-    private ComponentCreateUser mComponentCreateUser;
+    PresenterEditUser mPresenter;
+    private ComponentEditUser mComponentEditUser;
 
-    public LoaderCreateUser(Context context) {
+    public LoaderEditUser(Context context) {
         super(context);
-        mComponentCreateUser = App.getAppComponent().plusCreateUserComponent(new ModuleCreateUser());
-        mComponentCreateUser.inject(this);
+        mComponentEditUser = App.getAppComponent().plusEditUserComponent(new ModuleEditUser());
+        mComponentEditUser.inject(this);
     }
 
     @Override

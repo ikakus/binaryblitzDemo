@@ -1,4 +1,4 @@
-package binaryblitz.com.binaryblitz.presentation.createuser;
+package binaryblitz.com.binaryblitz.presentation.edituser;
 
 
 import android.app.Dialog;
@@ -7,27 +7,29 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import binaryblitz.com.binaryblitz.R;
-import binaryblitz.com.binaryblitz.presentation.createuser.interfaces.ICreateUserView;
+import binaryblitz.com.binaryblitz.data.presentation.UserModel;
+import binaryblitz.com.binaryblitz.presentation.edituser.interfaces.IEditUserView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import timber.log.Timber;
 
 /**
  * Created by ikakus on 10/27/17.
  */
 
-public class DialogFragmentCreateUser extends DialogFragment implements ICreateUserView, LoaderManager.LoaderCallbacks<PresenterCreateUser> {
+public class DialogFragmentEditUser extends DialogFragment implements IEditUserView, LoaderManager.LoaderCallbacks<PresenterEditUser> {
     @BindView(R.id.imageView_avatar)
     ImageView mImageViewAvatar;
     @BindView(R.id.textInputLayout_firstName)
@@ -36,8 +38,9 @@ public class DialogFragmentCreateUser extends DialogFragment implements ICreateU
     TextInputLayout mTextInputLayoutLastName;
     @BindView(R.id.textInputLayout_email)
     TextInputLayout mTextInputLayoutEmail;
-    private PresenterCreateUser mPresenter;
+    private PresenterEditUser mPresenter;
     private Unbinder unbinder;
+    private UserModel userModel;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -55,12 +58,19 @@ public class DialogFragmentCreateUser extends DialogFragment implements ICreateU
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.edit_user, container, false);
         unbinder = ButterKnife.bind(this, rootView);
-        WindowManager.LayoutParams wmlp = getDialog().getWindow().getAttributes();
-        wmlp.gravity = Gravity.FILL_HORIZONTAL;
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            userModel = bundle.getParcelable(UserModel.USER_MODEL);
+            if(userModel != null){
+                setFirstName(userModel.getFirstName());
+                setLastName(userModel.getLastName());
+                setEmail(userModel.getEmail());
+                setAvatar(userModel.getAvatarUrl());
+            }
+        }
         return rootView;
     }
 
@@ -100,6 +110,28 @@ public class DialogFragmentCreateUser extends DialogFragment implements ICreateU
     }
 
     @Override
+    public void setAvatar(String avatarUrl) {
+        try {
+
+            if (avatarUrl != null) {
+                Picasso.with(getContext())
+                        .load(avatarUrl)
+                        .error(R.mipmap.ic_launcher_round)
+                        .into(mImageViewAvatar);
+            } else {
+                Picasso.with(getContext())
+                        .load(R.mipmap.ic_launcher_round)
+                        .into(mImageViewAvatar);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+            Picasso.with(getContext())
+                    .load(R.mipmap.ic_launcher_round)
+                    .into(mImageViewAvatar);
+        }
+    }
+
+    @Override
     public void showErrorFirstName(String errorMessage) {
         mTextInputLayoutFirstName.setError(errorMessage);
     }
@@ -121,22 +153,22 @@ public class DialogFragmentCreateUser extends DialogFragment implements ICreateU
 
     @Override
     public void close() {
-        dismiss();
+        Toast.makeText(getContext(), "User updated successfully", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public Loader<PresenterCreateUser> onCreateLoader(int id, Bundle args) {
-        return new LoaderCreateUser(getContext());
+    public Loader<PresenterEditUser> onCreateLoader(int id, Bundle args) {
+        return new LoaderEditUser(getContext());
     }
 
     @Override
-    public void onLoadFinished(Loader<PresenterCreateUser> loader, PresenterCreateUser presenter) {
+    public void onLoadFinished(Loader<PresenterEditUser> loader, PresenterEditUser presenter) {
         mPresenter = presenter;
         mPresenter.onViewAttached(this);
     }
 
     @Override
-    public void onLoaderReset(Loader<PresenterCreateUser> loader) {
+    public void onLoaderReset(Loader<PresenterEditUser> loader) {
         mPresenter = null;
     }
 
@@ -152,15 +184,6 @@ public class DialogFragmentCreateUser extends DialogFragment implements ICreateU
         super.onDetach();
     }
 
-    @Override
-    public void onResume() {
-        ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
-        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
-
-        super.onResume();
-    }
-
     @OnClick({R.id.imageView_avatar, R.id.buttonEdit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -170,7 +193,7 @@ public class DialogFragmentCreateUser extends DialogFragment implements ICreateU
                 mTextInputLayoutFirstName.setError(null);
                 mTextInputLayoutLastName.setError(null);
                 mTextInputLayoutEmail.setError(null);
-                mPresenter.onCreateUserClick();
+                mPresenter.onEditUserClick(userModel);
                 break;
         }
     }

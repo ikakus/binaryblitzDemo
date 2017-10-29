@@ -4,6 +4,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
+import binaryblitz.com.binaryblitz.utils.UserFieldsValidator;
+
 import static org.junit.Assert.assertEquals;
 
 /**

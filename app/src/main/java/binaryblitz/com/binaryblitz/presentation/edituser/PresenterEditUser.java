@@ -1,31 +1,32 @@
-package binaryblitz.com.binaryblitz.presentation.createuser;
+package binaryblitz.com.binaryblitz.presentation.edituser;
 
 import binaryblitz.com.binaryblitz.data.networking.BaseResponse;
-import binaryblitz.com.binaryblitz.data.presentation.CreateUserModel;
+import binaryblitz.com.binaryblitz.data.presentation.EditUserModel;
+import binaryblitz.com.binaryblitz.data.presentation.UserModel;
 import binaryblitz.com.binaryblitz.presentation.Presenter;
-import binaryblitz.com.binaryblitz.presentation.createuser.interfaces.ICreateUserInteractor;
-import binaryblitz.com.binaryblitz.presentation.createuser.interfaces.ICreateUserView;
+import binaryblitz.com.binaryblitz.presentation.edituser.interfaces.IEditUserInteractor;
+import binaryblitz.com.binaryblitz.presentation.edituser.interfaces.IEditUserView;
 import binaryblitz.com.binaryblitz.utils.UserFieldsValidator;
 
 /**
  * Created by ikakus on 10/27/17.
  */
 
-public class PresenterCreateUser implements Presenter<ICreateUserView>, ICreateUserInteractor.UserAddedListener {
-    private ICreateUserInteractor mInteractorCreateUser;
-    private ICreateUserView mView;
+public class PresenterEditUser implements Presenter<IEditUserView>, IEditUserInteractor.UserEditListener {
+    private IEditUserInteractor mInteractorEditUser;
+    private IEditUserView mView;
     private String mFistName;
     private String mLastName;
     private String mEmail;
 
     private boolean mIsRetained = false;
 
-    public PresenterCreateUser(ICreateUserInteractor interactorCreateUser) {
-        mInteractorCreateUser = interactorCreateUser;
+    public PresenterEditUser(IEditUserInteractor interactorEditUser) {
+        mInteractorEditUser = interactorEditUser;
     }
 
     @Override
-    public void onViewAttached(ICreateUserView view) {
+    public void onViewAttached(IEditUserView view) {
         mView = view;
         if (mIsRetained) {
             mView.setFirstName(mFistName);
@@ -47,7 +48,7 @@ public class PresenterCreateUser implements Presenter<ICreateUserView>, ICreateU
 
     }
 
-    public void onCreateUserClick() {
+    public void onEditUserClick(UserModel userModel) {
         boolean allFieldsValid = true;
         if (!validateFirstName()) {
             mView.showErrorFirstName("Mandatory field");
@@ -65,13 +66,14 @@ public class PresenterCreateUser implements Presenter<ICreateUserView>, ICreateU
         }
 
         if (allFieldsValid) {
-            CreateUserModel createUserModel = new CreateUserModel(
+            EditUserModel editUserModel = new EditUserModel(
+                    userModel.getId(),
                     mView.getFirstName(),
                     mView.getLastName(),
                     mView.getEmail(),
                     mView.getAvatarUrl()
             );
-            mInteractorCreateUser.addUser(createUserModel, this);
+            mInteractorEditUser.editUser(editUserModel, this);
         }
     }
 
