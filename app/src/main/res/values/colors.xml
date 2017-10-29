@@ -6,4 +6,5 @@
 
     <color name="transparent">#00ffffff</color>
     <color name="default_selector_pressed">#2c0059ff</color>
+    <color name="white">#ffffff</color>
 </resources>

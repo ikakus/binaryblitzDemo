@@ -2,7 +2,6 @@ package binaryblitz.com.binaryblitz.presentation.maincontainer;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import binaryblitz.com.binaryblitz.R;
+import binaryblitz.com.binaryblitz.presentation.createuser.DialogFragmentCreateUser;
 import binaryblitz.com.binaryblitz.presentation.maincontainer.interfaces.IMainContainerView;
-import binaryblitz.com.binaryblitz.presentation.userlist.UserListViewFragment;
+import binaryblitz.com.binaryblitz.presentation.userlist.FragmentUserListView;
 
 
 public class ActivityMainContainer extends AppCompatActivity implements IMainContainerView, LoaderManager.LoaderCallbacks<PresenterMainContainer> {
@@ -33,19 +33,18 @@ public class ActivityMainContainer extends AppCompatActivity implements IMainCon
             mTwoPane = true;
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                mPresenter.onCreateUserClick();
             }
         });
         getSupportLoaderManager().initLoader(0, null, this);
     }
 
     private void setListFragment() {
-        UserListViewFragment fragment = new UserListViewFragment();
+        FragmentUserListView fragment = new FragmentUserListView();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.user_list_container, fragment)
                 .commitAllowingStateLoss();
@@ -53,11 +52,13 @@ public class ActivityMainContainer extends AppCompatActivity implements IMainCon
 
     @Override
     public void setUserList() {
-        if(mTwoPane){
+        setListFragment();
+    }
 
-        }else {
-            setListFragment();
-        }
+    @Override
+    public void showCreateUser() {
+        DialogFragmentCreateUser dialogFragmentCreateUser = new DialogFragmentCreateUser();
+        dialogFragmentCreateUser.show(getSupportFragmentManager(), "dialog_create_user");
     }
 
     @Override

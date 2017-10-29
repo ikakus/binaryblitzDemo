@@ -30,4 +30,8 @@ class PresenterMainContainer implements Presenter<IMainContainerView> {
     public void onDestroyed() {
         mIsRetained = false;
     }
+
+    public void onCreateUserClick() {
+        mView.showCreateUser();
+    }
 }
