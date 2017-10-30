@@ -40,7 +40,7 @@ public class ActivityEditUser extends AppCompatActivity implements IEditUserView
     TextInputLayout mTextInputLayoutEmail;
 
     private PresenterEditUser mPresenter;
-    private UserModel userModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +52,6 @@ public class ActivityEditUser extends AppCompatActivity implements IEditUserView
         }
         ButterKnife.bind(this);
         getSupportLoaderManager().initLoader(0, null, this);
-        userModel = (UserModel) getIntent().getParcelableExtra(UserModel.USER_MODEL);
-        if (userModel != null) {
-            setFirstName(userModel.getFirstName());
-            setLastName(userModel.getLastName());
-            setEmail(userModel.getEmail());
-            setAvatar(userModel.getAvatarUrl());
-        }
     }
 
     @Override
@@ -158,7 +151,7 @@ public class ActivityEditUser extends AppCompatActivity implements IEditUserView
                 mTextInputLayoutFirstName.setError(null);
                 mTextInputLayoutLastName.setError(null);
                 mTextInputLayoutEmail.setError(null);
-                mPresenter.onEditUserClick(userModel);
+                mPresenter.onEditUserClick();
                 break;
         }
     }
@@ -172,6 +165,8 @@ public class ActivityEditUser extends AppCompatActivity implements IEditUserView
     public void onLoadFinished(Loader<PresenterEditUser> loader, PresenterEditUser presenter) {
         mPresenter = presenter;
         mPresenter.onViewAttached(this);
+        UserModel userModel = (UserModel) getIntent().getParcelableExtra(UserModel.USER_MODEL);
+        mPresenter.setUserModel(userModel);
     }
 
     @Override

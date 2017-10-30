@@ -40,7 +40,7 @@ public class DialogFragmentEditUser extends DialogFragment implements IEditUserV
     TextInputLayout mTextInputLayoutEmail;
     private PresenterEditUser mPresenter;
     private Unbinder unbinder;
-    private UserModel userModel;
+    private UserModel mUserModel;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -63,13 +63,13 @@ public class DialogFragmentEditUser extends DialogFragment implements IEditUserV
         unbinder = ButterKnife.bind(this, rootView);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            userModel = bundle.getParcelable(UserModel.USER_MODEL);
-            if(userModel != null){
-                setFirstName(userModel.getFirstName());
-                setLastName(userModel.getLastName());
-                setEmail(userModel.getEmail());
-                setAvatar(userModel.getAvatarUrl());
-            }
+            mUserModel = bundle.getParcelable(UserModel.USER_MODEL);
+//            if(mUserModel != null){
+//                setFirstName(mUserModel.getFirstName());
+//                setLastName(mUserModel.getLastName());
+//                setEmail(mUserModel.getEmail());
+//                setAvatar(mUserModel.getAvatarUrl());
+//            }
         }
         return rootView;
     }
@@ -165,6 +165,7 @@ public class DialogFragmentEditUser extends DialogFragment implements IEditUserV
     public void onLoadFinished(Loader<PresenterEditUser> loader, PresenterEditUser presenter) {
         mPresenter = presenter;
         mPresenter.onViewAttached(this);
+        mPresenter.setUserModel(mUserModel);
     }
 
     @Override
@@ -193,7 +194,7 @@ public class DialogFragmentEditUser extends DialogFragment implements IEditUserV
                 mTextInputLayoutFirstName.setError(null);
                 mTextInputLayoutLastName.setError(null);
                 mTextInputLayoutEmail.setError(null);
-                mPresenter.onEditUserClick(userModel);
+                mPresenter.onEditUserClick();
                 break;
         }
     }

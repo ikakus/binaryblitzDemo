@@ -20,6 +20,7 @@ public class PresenterEditUser implements Presenter<IEditUserView>, IEditUserInt
     private String mEmail;
 
     private boolean mIsRetained = false;
+    private UserModel mUserModel;
 
     public PresenterEditUser(IEditUserInteractor interactorEditUser) {
         mInteractorEditUser = interactorEditUser;
@@ -48,7 +49,7 @@ public class PresenterEditUser implements Presenter<IEditUserView>, IEditUserInt
 
     }
 
-    public void onEditUserClick(UserModel userModel) {
+    public void onEditUserClick() {
         boolean allFieldsValid = true;
         if (!validateFirstName()) {
             mView.showErrorFirstName("Mandatory field");
@@ -67,7 +68,7 @@ public class PresenterEditUser implements Presenter<IEditUserView>, IEditUserInt
 
         if (allFieldsValid) {
             EditUserModel editUserModel = new EditUserModel(
-                    userModel.getId(),
+                    mUserModel.getId(),
                     mView.getFirstName(),
                     mView.getLastName(),
                     mView.getEmail(),
@@ -100,5 +101,15 @@ public class PresenterEditUser implements Presenter<IEditUserView>, IEditUserInt
     @Override
     public void onSuccess(UserModelR userModels) {
         mView.close();
+    }
+
+    public void setUserModel(UserModel userModel) {
+        mUserModel = userModel;
+        if (userModel != null) {
+            mView.setFirstName(userModel.getFirstName());
+            mView.setLastName(userModel.getLastName());
+            mView.setEmail(userModel.getEmail());
+            mView.setAvatar(userModel.getAvatarUrl());
+        }
     }
 }
