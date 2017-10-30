@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import javax.inject.Singleton;
 
+import binaryblitz.com.binaryblitz.UserInteractionBus;
 import dagger.Module;
 import dagger.Provides;
 
@@ -24,5 +25,11 @@ public class AppModule {
     @Provides
     public Context provideContext(){
         return mApp;
+    }
+
+    @Singleton
+    @Provides
+    public UserInteractionBus provideUserInteractionBus(){
+        return new UserInteractionBus();
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import binaryblitz.com.binaryblitz.data.api.ApiEndpointInterface;
 import binaryblitz.com.binaryblitz.data.api.ErrorHandlingSubscriber;
 import binaryblitz.com.binaryblitz.data.api.IResponseCallback;
-import binaryblitz.com.binaryblitz.data.networking.UserModelR;
+import binaryblitz.com.binaryblitz.data.networking.response.UserModelR;
 import binaryblitz.com.binaryblitz.data.presentation.UserModel;
 import binaryblitz.com.binaryblitz.presentation.userlist.interfaces.IUserListInteractor;
 import retrofit2.Response;
@@ -19,12 +19,12 @@ import rx.schedulers.Schedulers;
  * Created by ikakus on 10/26/17.
  */
 
-public class UserListInteractorImpl implements IUserListInteractor, IResponseCallback<List<UserModelR>> {
+public class InteractorUserList implements IUserListInteractor, IResponseCallback<List<UserModelR>> {
     private final ApiEndpointInterface mApi;
     private UsersLoadedListener mListener;
     private Subscription mSubscription;
 
-    public UserListInteractorImpl(ApiEndpointInterface apiEndpointInterface) {
+    public InteractorUserList(ApiEndpointInterface apiEndpointInterface) {
         mApi = apiEndpointInterface;
     }
 

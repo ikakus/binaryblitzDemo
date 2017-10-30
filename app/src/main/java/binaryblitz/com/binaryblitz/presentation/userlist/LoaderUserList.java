@@ -1,28 +1,28 @@
 package binaryblitz.com.binaryblitz.presentation.userlist;
 
 import android.content.Context;
-import android.content.Loader;
+import android.support.v4.content.Loader;
 
 import javax.inject.Inject;
 
-import binaryblitz.com.binaryblitz.di.modules.AppModule;
+import binaryblitz.com.binaryblitz.App;
+import binaryblitz.com.binaryblitz.presentation.edituser.ModuleEditUser;
 
 
 /**
- * Created by ikakus on 10/25/17.
+ * Loader for presenter surviving rotation
  */
 
 public class LoaderUserList extends Loader<PresenterUserList> {
     @Inject
     PresenterUserList mPresenter;
     private ComponentUserList mComponentUserList;
+
     public LoaderUserList(Context context) {
         super(context);
-        mComponentUserList = DaggerComponentUserList.builder()
-                .moduleUserList(new ModuleUserList())
-                .appModule(new AppModule(getContext()))
-                .build();
+        mComponentUserList  = App.getAppComponent().plusUserListComponent(new ModuleUserList());
         mComponentUserList.inject(this);
+
     }
 
     @Override

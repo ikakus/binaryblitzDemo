@@ -1,30 +1,38 @@
 package binaryblitz.com.binaryblitz.presentation.userlist;
 
+import java.util.Collections;
 import java.util.List;
 
+import binaryblitz.com.binaryblitz.UserInteractionBus;
 import binaryblitz.com.binaryblitz.data.presentation.UserModel;
 import binaryblitz.com.binaryblitz.presentation.Presenter;
 import binaryblitz.com.binaryblitz.presentation.userlist.interfaces.IUserListInteractor;
-import binaryblitz.com.binaryblitz.presentation.userlist.interfaces.ViewUserList;
+import binaryblitz.com.binaryblitz.presentation.userlist.interfaces.IViewUserList;
 
 /**
  * Created by ikakus on 10/25/17.
  */
 
-public class PresenterUserList implements Presenter<ViewUserList>,IUserListInteractor.UsersLoadedListener {
+public class PresenterUserList implements Presenter<IViewUserList>,IUserListInteractor.UsersLoadedListener, IViewUserList.OnUserItemClickListener, UserInteractionBus.IUserEditDoneSubscriber {
     private final IUserListInteractor mInteractor;
-    private ViewUserList mView;
-    private List<UserModel> mUserMoodels;
+    private final UserInteractionBus mBus;
+    private IViewUserList mView;
+    private List<UserModel> mUserModels;
 
-    public PresenterUserList(IUserListInteractor iUserListInteractor) {
+    public PresenterUserList(IUserListInteractor iUserListInteractor, UserInteractionBus userInteractionBus) {
         mInteractor = iUserListInteractor;
+        mBus = userInteractionBus;
+        mBus.addEditUserDoneSubscriber(this);
     }
 
     @Override
-    public void onViewAttached(ViewUserList view) {
+    public void onViewAttached(IViewUserList view) {
         mView = view;
-        if(mUserMoodels == null) {
+        if(mUserModels == null) {
+            mView.showLoading();
             mInteractor.getUsers(this);
+        }else {
+            onSuccess(mUserModels);
         }
     }
 
@@ -40,13 +48,29 @@ public class PresenterUserList implements Presenter<ViewUserList>,IUserListInter
 
     @Override
     public void onError(String error) {
-        mView.show(error);
+        mView.hideLoading();
+        mView.showText(error);
     }
 
     @Override
     public void onSuccess(List<UserModel> userModels) {
-        mUserMoodels = userModels;
-        mView.show(mUserMoodels.get(0).getFirstName());
+        Collections.sort(userModels, Collections.reverseOrder());
+        mView.hideLoading();
+        mUserModels = userModels;
+        mView.fillUsers(userModels);
+    }
 
+    @Override
+    public void onUserItemClicked(UserModel userModel) {
+        mBus.onUserEditClick(userModel);
+    }
+
+    public void reload(){
+        mInteractor.getUsers(this);
+    }
+
+    @Override
+    public void onUserEditDone() {
+        reload();
     }
 }
