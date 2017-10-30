@@ -1,5 +1,6 @@
 package binaryblitz.com.binaryblitz.presentation.edituser;
 
+import binaryblitz.com.binaryblitz.UserInteractionBus;
 import binaryblitz.com.binaryblitz.data.networking.response.UserModelR;
 import binaryblitz.com.binaryblitz.data.presentation.EditUserModel;
 import binaryblitz.com.binaryblitz.data.presentation.UserModel;
@@ -13,6 +14,7 @@ import binaryblitz.com.binaryblitz.utils.UserFieldsValidator;
  */
 
 public class PresenterEditUser implements Presenter<IEditUserView>, IEditUserInteractor.UserEditListener {
+    private final UserInteractionBus mBus;
     private IEditUserInteractor mInteractorEditUser;
     private IEditUserView mView;
     private String mFistName;
@@ -22,8 +24,9 @@ public class PresenterEditUser implements Presenter<IEditUserView>, IEditUserInt
     private boolean mIsRetained = false;
     private UserModel mUserModel;
 
-    public PresenterEditUser(IEditUserInteractor interactorEditUser) {
+    public PresenterEditUser(IEditUserInteractor interactorEditUser, UserInteractionBus userInteractionBus) {
         mInteractorEditUser = interactorEditUser;
+        mBus = userInteractionBus;
     }
 
     @Override
@@ -100,6 +103,7 @@ public class PresenterEditUser implements Presenter<IEditUserView>, IEditUserInt
 
     @Override
     public void onSuccess(UserModelR userModels) {
+        mBus.onUserEditDone();
         mView.close();
     }
 

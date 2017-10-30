@@ -10,19 +10,34 @@ import binaryblitz.com.binaryblitz.data.presentation.UserModel;
  */
 
 public class UserInteractionBus {
-    List<IUserInteractionSubscriber> mIUserInteractionSubscribers = new ArrayList<>();
+    List<IUserEditIntentSubscriber> mIUserEditIntentSubscribers = new ArrayList<>();
+    List<IUserEditDoneSubscriber> mIUserEditDoneSubscribers = new ArrayList<>();
 
     public void onUserEditClick(UserModel editUserModel){
-        for (IUserInteractionSubscriber iUserInteractionSubscriber : mIUserInteractionSubscribers) {
+        for (IUserEditIntentSubscriber iUserInteractionSubscriber : mIUserEditIntentSubscribers) {
             iUserInteractionSubscriber.onUserEdit(editUserModel);
         }
     }
 
-    public void addSubscriber(IUserInteractionSubscriber subscriber){
-        mIUserInteractionSubscribers.add(subscriber);
+    public void addEditUserIntentSubscriber(IUserEditIntentSubscriber subscriber){
+        mIUserEditIntentSubscribers.add(subscriber);
     }
 
-    public interface IUserInteractionSubscriber{
+    public void onUserEditDone(){
+        for (IUserEditDoneSubscriber iUserInteractionSubscriber : mIUserEditDoneSubscribers) {
+            iUserInteractionSubscriber.onUserEditDone();
+        }
+    }
+
+    public void addEditUserDoneSubscriber(IUserEditDoneSubscriber subscriber){
+        mIUserEditDoneSubscribers.add(subscriber);
+    }
+
+    public interface IUserEditIntentSubscriber {
         void onUserEdit(UserModel userModel);
+    }
+
+    public interface IUserEditDoneSubscriber {
+        void onUserEditDone();
     }
 }

@@ -13,7 +13,7 @@ import binaryblitz.com.binaryblitz.presentation.userlist.interfaces.IViewUserLis
  * Created by ikakus on 10/25/17.
  */
 
-public class PresenterUserList implements Presenter<IViewUserList>,IUserListInteractor.UsersLoadedListener, IViewUserList.OnUserItemClickListener {
+public class PresenterUserList implements Presenter<IViewUserList>,IUserListInteractor.UsersLoadedListener, IViewUserList.OnUserItemClickListener, UserInteractionBus.IUserEditDoneSubscriber {
     private final IUserListInteractor mInteractor;
     private final UserInteractionBus mBus;
     private IViewUserList mView;
@@ -22,6 +22,7 @@ public class PresenterUserList implements Presenter<IViewUserList>,IUserListInte
     public PresenterUserList(IUserListInteractor iUserListInteractor, UserInteractionBus userInteractionBus) {
         mInteractor = iUserListInteractor;
         mBus = userInteractionBus;
+        mBus.addEditUserDoneSubscriber(this);
     }
 
     @Override
@@ -66,5 +67,10 @@ public class PresenterUserList implements Presenter<IViewUserList>,IUserListInte
 
     public void reload(){
         mInteractor.getUsers(this);
+    }
+
+    @Override
+    public void onUserEditDone() {
+        reload();
     }
 }

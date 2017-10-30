@@ -9,7 +9,7 @@ import binaryblitz.com.binaryblitz.presentation.maincontainer.interfaces.IMainCo
  * Created by ikakus on 10/27/17.
  */
 
-class PresenterMainContainer implements Presenter<IMainContainerView>,UserInteractionBus.IUserInteractionSubscriber {
+class PresenterMainContainer implements Presenter<IMainContainerView>,UserInteractionBus.IUserEditIntentSubscriber {
 
     private final UserInteractionBus mBus;
     private IMainContainerView mView;
@@ -17,7 +17,7 @@ class PresenterMainContainer implements Presenter<IMainContainerView>,UserIntera
 
     public PresenterMainContainer(UserInteractionBus userInteractionBus) {
         mBus = userInteractionBus;
-        mBus.addSubscriber(this);
+        mBus.addEditUserIntentSubscriber(this);
     }
 
     @Override
